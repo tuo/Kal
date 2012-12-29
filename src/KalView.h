@@ -4,6 +4,7 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "KalCustom.h"
 
 @class KalGridView, KalLogic, KalDate;
 @protocol KalViewDelegate, KalDataSourceCallbacks;

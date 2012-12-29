@@ -4,6 +4,7 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "KalCustom.h"
 
 enum {
   KalTileTypeRegular   = 0,
