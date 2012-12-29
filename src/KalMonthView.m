@@ -4,6 +4,7 @@
  */
 
 #import <CoreGraphics/CoreGraphics.h>
+#import <QuartzCore/QuartzCore.h>
 #import "KalMonthView.h"
 #import "KalTileView.h"
 #import "KalView.h"

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		521CB9DB168EA18600F2CC1C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521CB9DA168EA18600F2CC1C /* QuartzCore.framework */; };
 		526874F8168E95E50032ED1C /* KalCustom.h in Headers */ = {isa = PBXBuildFile; fileRef = 526874F6168E95E50032ED1C /* KalCustom.h */; };
 		526874F9168E95E50032ED1C /* KalCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 526874F7168E95E50032ED1C /* KalCustom.m */; };
 		533B287611E2D46E00B3CC07 /* Kal.h in Headers */ = {isa = PBXBuildFile; fileRef = 533B286011E2D46E00B3CC07 /* Kal.h */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		521CB9DA168EA18600F2CC1C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		526874F6168E95E50032ED1C /* KalCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KalCustom.h; sourceTree = "<group>"; };
 		526874F7168E95E50032ED1C /* KalCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KalCustom.m; sourceTree = "<group>"; };
 		533B285F11E2D46E00B3CC07 /* Kal.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Kal.bundle; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				521CB9DB168EA18600F2CC1C /* QuartzCore.framework in Frameworks */,
 				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,6 +92,7 @@
 		0867D691FE84028FC02AAC07 /* Kal */ = {
 			isa = PBXGroup;
 			children = (
+				521CB9DA168EA18600F2CC1C /* QuartzCore.framework */,
 				533B285F11E2D46E00B3CC07 /* Kal.bundle */,
 				08FB77AEFE84172EC02AAC07 /* Classes */,
 				533B289C11E2D48000B3CC07 /* Additions */,

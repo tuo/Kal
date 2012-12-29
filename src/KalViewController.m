@@ -189,6 +189,9 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
   tableView.dataSource = dataSource;
   tableView.delegate = delegate;
   [tableView retain];
+
+    self.view.backgroundColor = [UIColor whiteColor];
+    tableView.backgroundColor = [UIColor whiteColor];
   [kalView selectDate:[KalDate dateFromNSDate:self.initialDate]];
   [self reloadData];
 }
