@@ -57,6 +57,21 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
   return [self initWithSelectedDate:[NSDate date]];
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        NSDate *date = [NSDate date];
+        logic = [[KalLogic alloc] initForDate:date];
+        self.initialDate = date;
+        self.selectedDate = date;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(significantTimeChangeOccurred) name:UIApplicationSignificantTimeChangeNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:KalDataSourceChangedNotification object:nil];
+
+    }
+
+    return self;
+}
+
 - (KalView*)calendarView { return (KalView*)self.view; }
 
 - (void)setDataSource:(id<KalDataSource>)aDataSource
