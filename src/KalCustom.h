@@ -10,7 +10,7 @@
 
 @interface KalCustom : NSObject
 + (KalCustom *)shareInstance;
-
 @property (nonatomic, assign) BOOL isCustom;
+- (NSDictionary *)titleSize;
 
 @end

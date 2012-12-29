@@ -17,7 +17,7 @@
 #define SLIDE_UP 1
 #define SLIDE_DOWN 2
 
-const CGSize kTileSize = { 46.f, 44.f };
+
 
 static NSString *kSlideAnimationId = @"KalSwitchMonths";
 
@@ -27,7 +27,9 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
 - (void)swapMonthViews;
 @end
 
-@implementation KalGridView
+@implementation KalGridView{
+    CGSize kTileSize;
+}
 
 @synthesize selectedTile, highlightedTile, transitioning;
 
@@ -41,6 +43,8 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
   // to accomodate all 7 columns. The 7th day's 2px inner stroke
   // will be clipped off the screen, but that's fine because
   // MobileCal does the same thing.
+    NSDictionary *titleSize = [KalCustom shareInstance].titleSize;
+kTileSize = CGSizeMake([titleSize[@"w"] floatValue], [titleSize[@"h"] floatValue]);
   frame.size.width = 7 * kTileSize.width;
   
   if (self = [super initWithFrame:frame]) {

@@ -10,15 +10,20 @@
 #import "KalDate.h"
 #import "KalPrivate.h"
 
-extern const CGSize kTileSize;
 
-@implementation KalMonthView
+@implementation KalMonthView{
+    CGSize kTileSize;
+}
 
 @synthesize numWeeks;
 
 - (id)initWithFrame:(CGRect)frame
 {
   if ((self = [super initWithFrame:frame])) {
+
+      NSDictionary *titleSize = [KalCustom shareInstance].titleSize;
+kTileSize = CGSizeMake([titleSize[@"w"] floatValue], [titleSize[@"h"] floatValue]);
+
     tileAccessibilityFormatter = [[NSDateFormatter alloc] init];
     [tileAccessibilityFormatter setDateFormat:@"EEEE, MMMM d"];
     self.opaque = NO;

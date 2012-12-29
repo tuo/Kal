@@ -225,4 +225,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
   [super dealloc];
 }
 
+- (void)updateCustomTo:(BOOL)custom{
+    [KalCustom shareInstance].isCustom = custom;
+}
 @end

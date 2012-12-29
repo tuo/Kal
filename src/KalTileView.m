@@ -7,16 +7,20 @@
 #import "KalDate.h"
 #import "KalPrivate.h"
 
-extern const CGSize kTileSize;
 
-@implementation KalTileView
+@implementation KalTileView{
+    CGSize kTileSize;
+}
 
 @synthesize date;
 
 - (id)initWithFrame:(CGRect)frame
 {
   if ((self = [super initWithFrame:frame])) {
-    self.opaque = NO;
+      NSDictionary *titleSize = [KalCustom shareInstance].titleSize;
+      kTileSize = CGSizeMake([titleSize[@"w"] floatValue], [titleSize[@"h"] floatValue]);
+
+      self.opaque = NO;
     self.backgroundColor = [UIColor clearColor];
     self.clipsToBounds = NO;
     origin = frame.origin;

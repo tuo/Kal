@@ -21,6 +21,13 @@
 }
 
 
+-(NSDictionary *)titleSize{
+    if (self.isCustom){
+        return @{@"w" : @42.0f, @"h":@42.0f};
+    }
+    return @{@"w" : @46.0f, @"h":@44.0f};
+}
+
 
 
 @end

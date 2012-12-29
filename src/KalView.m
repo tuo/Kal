@@ -73,7 +73,8 @@ static const CGFloat kMonthLabelHeight = 17.f;
   const CGFloat kChangeMonthButtonHeight = 30.0f;
   const CGFloat kMonthLabelWidth = 200.0f;
   const CGFloat kHeaderVerticalAdjust = 3.f;
-  
+
+    CGFloat buttonWith = [KalCustom shareInstance].isCustom ? 40.0f : 46.0f;
   // Header background gradient
   UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Kal.bundle/kal_grid_background.png"]];
   CGRect imageFrame = headerView.frame;
@@ -95,6 +96,8 @@ static const CGFloat kMonthLabelHeight = 17.f;
   [previousMonthButton addTarget:self action:@selector(showPreviousMonth) forControlEvents:UIControlEventTouchUpInside];
   [headerView addSubview:previousMonthButton];
   [previousMonthButton release];
+
+
   
   // Draw the selected month name centered and at the top of the view
   CGRect monthLabelFrame = CGRectMake((self.width/2.0f) - (kMonthLabelWidth/2.0f),
@@ -103,7 +106,8 @@ static const CGFloat kMonthLabelHeight = 17.f;
                                       kMonthLabelHeight);
   headerTitleLabel = [[UILabel alloc] initWithFrame:monthLabelFrame];
   headerTitleLabel.backgroundColor = [UIColor clearColor];
-  headerTitleLabel.font = [UIFont boldSystemFontOfSize:22.f];
+
+  headerTitleLabel.font = [UIFont boldSystemFontOfSize:([KalCustom shareInstance].isCustom ? 20.0f : 22.0f)];
   headerTitleLabel.textAlignment = UITextAlignmentCenter;
   headerTitleLabel.textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Kal.bundle/kal_header_text_fill.png"]];
   headerTitleLabel.shadowColor = [UIColor whiteColor];
@@ -112,7 +116,7 @@ static const CGFloat kMonthLabelHeight = 17.f;
   [headerView addSubview:headerTitleLabel];
   
   // Create the next month button on the right side of the view
-  CGRect nextMonthButtonFrame = CGRectMake(self.width - kChangeMonthButtonWidth,
+  CGRect nextMonthButtonFrame = CGRectMake(([KalCustom shareInstance].isCustom ? 294.0f : self.width) - kChangeMonthButtonWidth,
                                            kHeaderVerticalAdjust,
                                            kChangeMonthButtonWidth,
                                            kChangeMonthButtonHeight);
@@ -124,17 +128,18 @@ static const CGFloat kMonthLabelHeight = 17.f;
   [nextMonthButton addTarget:self action:@selector(showFollowingMonth) forControlEvents:UIControlEventTouchUpInside];
   [headerView addSubview:nextMonthButton];
   [nextMonthButton release];
-  
+
   // Add column labels for each weekday (adjusting based on the current locale's first weekday)
   NSArray *weekdayNames = [[[[NSDateFormatter alloc] init] autorelease] shortWeekdaySymbols];
   NSArray *fullWeekdayNames = [[[[NSDateFormatter alloc] init] autorelease] standaloneWeekdaySymbols];
   NSUInteger firstWeekday = [[NSCalendar currentCalendar] firstWeekday];
   NSUInteger i = firstWeekday - 1;
-  for (CGFloat xOffset = 0.f; xOffset < headerView.width; xOffset += 46.f, i = (i+1)%7) {
-    CGRect weekdayFrame = CGRectMake(xOffset, 30.f, 46.f, kHeaderHeight - 29.f);
+  CGFloat gap = [KalCustom shareInstance].isCustom ? 42.0f : 46.0f;
+  for (CGFloat xOffset = 0.f; xOffset < headerView.width; xOffset += gap, i = (i+1)%7) {
+    CGRect weekdayFrame = CGRectMake(xOffset, 30.f,gap, kHeaderHeight - 29.f);
     UILabel *weekdayLabel = [[UILabel alloc] initWithFrame:weekdayFrame];
     weekdayLabel.backgroundColor = [UIColor clearColor];
-    weekdayLabel.font = [UIFont boldSystemFontOfSize:10.f];
+    weekdayLabel.font = [UIFont boldSystemFontOfSize:([KalCustom shareInstance].isCustom ? 9.0f : 10.0f)];
     weekdayLabel.textAlignment = UITextAlignmentCenter;
     weekdayLabel.textColor = [UIColor colorWithRed:0.3f green:0.3f blue:0.3f alpha:1.f];
     weekdayLabel.shadowColor = [UIColor whiteColor];
