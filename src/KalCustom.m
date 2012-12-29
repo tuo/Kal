@@ -9,6 +9,8 @@
 #import "KalCustom.h"
 
 @implementation KalCustom
+@synthesize delegate = _delegate;
+
 
 + (KalCustom *)shareInstance {
     static KalCustom *sharedInstance = nil;
@@ -28,6 +30,10 @@
     return @{@"w" : @46.0f, @"h":@44.0f};
 }
 
+- (void)dealloc {
+    [_delegate release];
+    [super dealloc];
+}
 
 
 @end

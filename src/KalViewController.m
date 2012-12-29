@@ -231,4 +231,9 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 - (void)updateCustomTo:(BOOL)custom{
     [KalCustom shareInstance].isCustom = custom;
 }
+
+
+- (void)updateClickTileDelegate:(id<KalCustomDelegate>)controller {
+    [KalCustom shareInstance].delegate = controller;
+}
 @end

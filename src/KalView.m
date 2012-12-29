@@ -88,7 +88,7 @@ static const CGFloat kMonthLabelHeight = 17.f;
   [headerView addSubview:backgroundView];
   [backgroundView release];
   
-  // Create the previous month button on the left side of the view
+  // Create the previous month pickerDateButton on the left side of the view
   CGRect previousMonthButtonFrame = CGRectMake(self.left,
                                                kHeaderVerticalAdjust,
                                                kChangeMonthButtonWidth,
@@ -120,7 +120,7 @@ static const CGFloat kMonthLabelHeight = 17.f;
   [self setHeaderTitleText:[logic selectedMonthNameAndYear]];
   [headerView addSubview:headerTitleLabel];
   
-  // Create the next month button on the right side of the view
+  // Create the next month pickerDateButton on the right side of the view
   CGRect nextMonthButtonFrame = CGRectMake(([KalCustom shareInstance].isCustom ? 294.0f : self.width) - kChangeMonthButtonWidth,
                                            kHeaderVerticalAdjust,
                                            kChangeMonthButtonWidth,

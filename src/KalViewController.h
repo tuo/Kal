@@ -40,4 +40,6 @@
 - (void)showAndSelectDate:(NSDate *)date;           // Updates the state of the calendar to display the specified date's month and selects the tile for that date.
 
 - (void)updateCustomTo:(BOOL)b;
+
+- (void)updateClickTileDelegate:(id<KalCustomDelegate>)controller;
 @end
