@@ -152,7 +152,7 @@ kTileSize = CGSizeMake([titleSize[@"w"] floatValue], [titleSize[@"h"] floatValue
       self.selectedTile = tile;
       if ([KalCustom shareInstance].isCustom && [KalCustom shareInstance].delegate){
           NSLog(@"tile marked: %d tile.date: %@", tile.marked, tile.date.NSDate);
-          if (tile.marked == 0)
+          if (tile.marked == 0 && [[NSDate date] compare:tile.date.NSDate] != NSOrderedAscending )
             [[KalCustom shareInstance].delegate userSelectTileOfUpdateDate:tile.date.NSDate];
       }
     }
