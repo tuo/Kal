@@ -8,6 +8,7 @@
 #import "KalGridView.h"
 #import "KalLogic.h"
 #import "KalPrivate.h"
+#import "Kal_Prefix.pch"
 
 @interface KalView ()
 - (void)addSubviewsToHeaderView:(UIView *)headerView;
@@ -118,7 +119,7 @@ static const CGFloat kMonthLabelHeight = 17.f;
 
   headerTitleLabel.font = [UIFont boldSystemFontOfSize:([KalCustom shareInstance].isCustom ? 20.0f : 22.0f)];
   headerTitleLabel.textAlignment = UITextAlignmentCenter;
-  headerTitleLabel.textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Kal.bundle/kal_header_text_fill.png"]];
+  headerTitleLabel.textColor = UIColorFromRGB(0x363636);
   headerTitleLabel.shadowColor = [UIColor whiteColor];
   headerTitleLabel.shadowOffset = CGSizeMake(0.f, 1.f);
   [self setHeaderTitleText:[logic selectedMonthNameAndYear]];

@@ -39,7 +39,6 @@
           if (j % 7 == 0){
                xStart = 0;
           }
-          NSLog(@"xStart: %f ystart : %f and i %d and j %d", xStart, yStart, i, j);
           CGRect r = CGRectMake(xStart, yStart, kTileSize.width, kTileSize.height);
           KalTileView *tileView = [[KalTileView alloc] initWithFrame:r];
           [self addSubview:[tileView autorelease]];

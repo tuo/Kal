@@ -54,9 +54,12 @@
   textColor = [UIColor whiteColor];
   CGFloat drawStartY =  -1.0f;
   CGFloat drawGapSize = 1.0f;
-    UIColor *bgColorWhenSelected = UIColorFromRGB(0x454545); //gray
+    UIColor *bgColorWhenSelected = UIColorFromRGB(0x565654); //gray
     UIColor *bgColorWhenNotSelected = UIColorFromRGB(0xffffff); //white
     UIColor *bgColorWhenNotEmpty = UIColorFromRGB(0x75B2BF); //green
+     bgColorWhenNotEmpty = UIColorFromRGB(0x659596); //green
+     bgColorWhenNotEmpty = UIColorFromRGB(0x659596); //green
+     bgColorWhenNotEmpty = UIColorFromRGB(0x76A6A6); //green
 
 
     if ([self isToday] && self.selected) {
@@ -93,6 +96,7 @@
       [bgColorWhenNotEmpty setFill]; //green color
       CGContextFillRect(ctx, CGRectMake(0.f, drawStartY, kTileSize.width + drawGapSize, kTileSize.height + drawGapSize));
       textColor = [UIColor whiteColor];
+      textColor = UIColorFromRGB(0xFAF9F9);
   }
 
     if (self.selected ) {
