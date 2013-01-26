@@ -13,7 +13,8 @@
 @interface KalView ()
 - (void)addSubviewsToHeaderView:(UIView *)headerView;
 - (void)addSubviewsToContentView:(UIView *)contentView;
-- (void)setHeaderTitleText:(NSString *)text;
+
+- (void)setHeaderTitleText:(NSString *)text init:(BOOL)isFirst;
 @end
 
 static const CGFloat kHeaderHeight = 44.f;
@@ -114,6 +115,7 @@ static const CGFloat kMonthLabelHeight = 17.f;
                                       kHeaderVerticalAdjust,
                                       kMonthLabelWidth,
                                       kMonthLabelHeight);
+    NSLog(@"monthLabelFrame: %@", NSStringFromCGRect(monthLabelFrame));
   headerTitleLabel = [[UILabel alloc] initWithFrame:monthLabelFrame];
   headerTitleLabel.backgroundColor = [UIColor clearColor];
 
@@ -122,7 +124,8 @@ static const CGFloat kMonthLabelHeight = 17.f;
   headerTitleLabel.textColor = UIColorFromRGB(0x363636);
   headerTitleLabel.shadowColor = [UIColor whiteColor];
   headerTitleLabel.shadowOffset = CGSizeMake(0.f, 1.f);
-  [self setHeaderTitleText:[logic selectedMonthNameAndYear]];
+
+  [self setHeaderTitleText:[logic selectedMonthNameAndYear] init:YES];
   [headerView addSubview:headerTitleLabel];
   
   // Create the next month pickerDateButton on the right side of the view
@@ -218,18 +221,23 @@ static const CGFloat kMonthLabelHeight = 17.f;
     shadowView.top = gridBottom;
     
   } else if ([keyPath isEqualToString:@"selectedMonthNameAndYear"]) {
-    [self setHeaderTitleText:[change objectForKey:NSKeyValueChangeNewKey]];
+    [self setHeaderTitleText:[change objectForKey:NSKeyValueChangeNewKey] init:NO];
     
   } else {
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
   }
 }
 
-- (void)setHeaderTitleText:(NSString *)text
-{
+- (void)setHeaderTitleText:(NSString *)text init:(BOOL)isFirst {
+
   [headerTitleLabel setText:text];
   [headerTitleLabel sizeToFit];
-  headerTitleLabel.left = floorf(self.width/2.f - headerTitleLabel.width/2.f);
+  CGFloat  originX = floorf(self.width/2.f - headerTitleLabel.width/2.f);
+   if (isFirst){
+       originX   += ([KalCustom shareInstance].isCustom ? -14 :0);
+   }
+
+  headerTitleLabel.left = originX;
 }
 
 - (void)jumpToSelectedMonth { [gridView jumpToSelectedMonth]; }

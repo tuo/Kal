@@ -34,7 +34,7 @@
 {
   if ((self = [super init])) {
     monthAndYearFormatter = [[NSDateFormatter alloc] init];
-    [monthAndYearFormatter setDateFormat:@"LLLL yyyy"];
+    [monthAndYearFormatter setDateFormat:@"yyyy-MM"];
     [self moveToMonthForDate:date];
   }
   return self;
