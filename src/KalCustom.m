@@ -24,10 +24,12 @@
 
 
 -(NSDictionary *)titleSize{
+    //7 * width + 6 * gap = 294 or 320 ;
+    //gap = 2 width = 44
     if (self.isCustom){
-        return @{@"w" : @42.0f, @"h":@42.0f};
+        return @{@"w" : @42.0f, @"h":@42.0f,@"g" : @2.0f};
     }
-    return @{@"w" : @46.0f, @"h":@44.0f};
+    return @{@"w" : @44.0f, @"h":@42.0f, @"g" : @2.0f};
 }
 
 - (void)dealloc {

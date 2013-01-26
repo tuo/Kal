@@ -14,6 +14,7 @@
 
 @implementation KalMonthView{
     CGSize kTileSize;
+    CGFloat kTileGap;
 }
 
 @synthesize numWeeks;
@@ -23,17 +24,28 @@
   if ((self = [super initWithFrame:frame])) {
 
       NSDictionary *titleSize = [KalCustom shareInstance].titleSize;
-kTileSize = CGSizeMake([titleSize[@"w"] floatValue], [titleSize[@"h"] floatValue]);
+     kTileSize = CGSizeMake([titleSize[@"w"] floatValue], [titleSize[@"h"] floatValue]);
+      kTileGap = [titleSize[@"g"] floatValue];
 
     tileAccessibilityFormatter = [[NSDateFormatter alloc] init];
     [tileAccessibilityFormatter setDateFormat:@"EEEE, MMMM d"];
     self.opaque = NO;
     self.clipsToBounds = YES;
+    CGFloat xStart = 0.0f;
+    CGFloat yStart = kTileGap;
     for (int i=0; i<6; i++) {
       for (int j=0; j<7; j++) {
-        CGRect r = CGRectMake(j*kTileSize.width, i*kTileSize.height, kTileSize.width, kTileSize.height);
-        [self addSubview:[[[KalTileView alloc] initWithFrame:r] autorelease]];
+
+          if (j % 7 == 0){
+               xStart = 0;
+          }
+          NSLog(@"xStart: %f ystart : %f and i %d and j %d", xStart, yStart, i, j);
+          CGRect r = CGRectMake(xStart, yStart, kTileSize.width, kTileSize.height);
+          KalTileView *tileView = [[KalTileView alloc] initWithFrame:r];
+          [self addSubview:[tileView autorelease]];
+          xStart += (kTileSize.width + kTileGap);
       }
+      yStart += (kTileSize.height + kTileGap);
     }
   }
   return self;
@@ -63,8 +75,8 @@ kTileSize = CGSizeMake([titleSize[@"w"] floatValue], [titleSize[@"h"] floatValue
 
 - (void)drawRect:(CGRect)rect
 {
-  CGContextRef ctx = UIGraphicsGetCurrentContext();
-  CGContextDrawTiledImage(ctx, (CGRect){CGPointZero,kTileSize}, [[UIImage imageNamed:@"Kal.bundle/kal_tile.png"] CGImage]);
+//  CGContextRef ctx = UIGraphicsGetCurrentContext();
+//  CGContextDrawTiledImage(ctx, (CGRect){CGPointZero,kTileSize}, [[UIImage imageNamed:@"Kal.bundle/kal_tile.png"] CGImage]);
 }
 
 - (KalTileView *)firstTileOfMonth
@@ -96,7 +108,7 @@ kTileSize = CGSizeMake([titleSize[@"w"] floatValue], [titleSize[@"h"] floatValue
 
 - (void)sizeToFit
 {
-  self.height = 1.f + kTileSize.height * numWeeks;
+  self.height = 2.f + (kTileSize.height + kTileGap) * numWeeks;
 }
 
 - (void)markTilesForDates:(NSArray *)dates

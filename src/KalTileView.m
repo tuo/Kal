@@ -3,9 +3,11 @@
  * License: http://www.opensource.org/licenses/mit-license.html
  */
 
+#import <QuartzCore/QuartzCore.h>
 #import "KalTileView.h"
 #import "KalDate.h"
 #import "KalPrivate.h"
+#import "Kal_Prefix.pch"
 
 
 @implementation KalTileView{
@@ -27,6 +29,11 @@
     [self setIsAccessibilityElement:YES];
     [self setAccessibilityTraits:UIAccessibilityTraitButton];
     [self resetState];
+    self.backgroundColor = UIColorFromRGB(0xffffff);
+      self.layer.masksToBounds = YES;
+      self.layer.cornerRadius = 4.0f;
+
+
   }
   return self;
 }
@@ -43,34 +50,59 @@
       
   CGContextTranslateCTM(ctx, 0, kTileSize.height);
   CGContextScaleCTM(ctx, 1, -1);
-  
-  if ([self isToday] && self.selected) {
-    [[[UIImage imageNamed:@"Kal.bundle/kal_tile_today_selected.png"] stretchableImageWithLeftCapWidth:6 topCapHeight:0] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
-    textColor = [UIColor whiteColor];
+
+  textColor = [UIColor whiteColor];
+  CGFloat drawStartY =  -1.0f;
+  CGFloat drawGapSize = 1.0f;
+    UIColor *bgColorWhenSelected = UIColorFromRGB(0x454545); //gray
+    UIColor *bgColorWhenNotSelected = UIColorFromRGB(0xffffff); //white
+    UIColor *bgColorWhenNotEmpty = UIColorFromRGB(0x75B2BF); //green
+
+
+    if ([self isToday] && self.selected) {
+//    [[[UIImage imageNamed:@"Kal.bundle/kal_tile_today_selected.png"] stretchableImageWithLeftCapWidth:6 topCapHeight:0] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
     shadowColor = [UIColor blackColor];
     markerImage = [UIImage imageNamed:@"Kal.bundle/kal_marker_today.png"];
+    [bgColorWhenSelected setFill]; //gray color
+    CGContextFillRect(ctx, CGRectMake(0.f, drawStartY, kTileSize.width + drawGapSize, kTileSize.height + drawGapSize));
+
   } else if ([self isToday] && !self.selected) {
-    [[[UIImage imageNamed:@"Kal.bundle/kal_tile_today.png"] stretchableImageWithLeftCapWidth:6 topCapHeight:0] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
-    textColor = [UIColor whiteColor];
+     [bgColorWhenNotSelected setFill]; //white color
+      CGContextFillRect(ctx, CGRectMake(0.f, drawStartY, kTileSize.width + drawGapSize, kTileSize.height + drawGapSize));
     shadowColor = [UIColor blackColor];
     markerImage = [UIImage imageNamed:@"Kal.bundle/kal_marker_today.png"];
+      textColor = UIColorFromRGB(0x535353);
   } else if (self.selected) {
-    [[[UIImage imageNamed:@"Kal.bundle/kal_tile_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:0] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
-    textColor = [UIColor whiteColor];
+//    [[[UIImage imageNamed:@"Kal.bundle/kal_tile_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:0] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
     shadowColor = [UIColor blackColor];
     markerImage = [UIImage imageNamed:@"Kal.bundle/kal_marker_selected.png"];
+      [bgColorWhenSelected setFill]; //gray color
+      CGContextFillRect(ctx, CGRectMake(0.f, drawStartY, kTileSize.width + drawGapSize, kTileSize.height + drawGapSize));
+
   } else if (self.belongsToAdjacentMonth) {
-    textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Kal.bundle/kal_tile_dim_text_fill.png"]];
+    textColor = UIColorFromRGB(0xD1D1D1);
     shadowColor = nil;
     markerImage = [UIImage imageNamed:@"Kal.bundle/kal_marker_dim.png"];
   } else {
-    textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Kal.bundle/kal_tile_text_fill.png"]];
+    textColor = UIColorFromRGB(0x535353); //when younot selected
     shadowColor = [UIColor whiteColor];
     markerImage = [UIImage imageNamed:@"Kal.bundle/kal_marker.png"];
   }
-  
-  if (flags.marked)
-    [markerImage drawInRect:CGRectMake(21.f, 5.f, 4.f, 5.f)];
+
+  if (flags.marked){
+      [bgColorWhenNotEmpty setFill]; //green color
+      CGContextFillRect(ctx, CGRectMake(0.f, drawStartY, kTileSize.width + drawGapSize, kTileSize.height + drawGapSize));
+      textColor = [UIColor whiteColor];
+  }
+
+    if (self.selected) {
+//    [[[UIImage imageNamed:@"Kal.bundle/kal_tile_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:0] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
+        shadowColor = [UIColor blackColor];
+        markerImage = [UIImage imageNamed:@"Kal.bundle/kal_marker_selected.png"];
+        [bgColorWhenSelected setFill]; //gray color
+        CGContextFillRect(ctx, CGRectMake(0.f, drawStartY, kTileSize.width + drawGapSize, kTileSize.height + drawGapSize));
+    }
+
   
   NSUInteger n = [self.date day];
   NSString *dayText = [NSString stringWithFormat:@"%lu", (unsigned long)n];
@@ -79,11 +111,11 @@
   CGFloat textX, textY;
   textX = roundf(0.5f * (kTileSize.width - textSize.width));
   textY = 6.f + roundf(0.5f * (kTileSize.height - textSize.height));
-  if (shadowColor) {
-    [shadowColor setFill];
-    CGContextShowTextAtPoint(ctx, textX, textY, day, n >= 10 ? 2 : 1);
-    textY += 1.f;
-  }
+//  if (shadowColor) {
+//    [shadowColor setFill];
+//    CGContextShowTextAtPoint(ctx, textX, textY, day, n >= 10 ? 2 : 1);
+//    textY += 1.f;
+//  }
   [textColor setFill];
   CGContextShowTextAtPoint(ctx, textX, textY, day, n >= 10 ? 2 : 1);
   

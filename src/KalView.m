@@ -3,6 +3,7 @@
  * License: http://www.opensource.org/licenses/mit-license.html
  */
 
+#import <QuartzCore/QuartzCore.h>
 #import "KalView.h"
 #import "KalGridView.h"
 #import "KalLogic.h"
@@ -41,8 +42,8 @@ static const CGFloat kMonthLabelHeight = 17.f;
     [self addSubviewsToContentView:contentView];
     [self addSubview:contentView];
 
-    contentView.backgroundColor = [UIColor whiteColor];
-    self.backgroundColor = [UIColor whiteColor];
+    contentView.backgroundColor = UIColorFromRGB(0xE3E3E3);
+    self.backgroundColor = [UIColor clearColor];
     headerView.backgroundColor = [UIColor whiteColor];
   }
   
@@ -85,7 +86,10 @@ static const CGFloat kMonthLabelHeight = 17.f;
   CGRect imageFrame = headerView.frame;
   imageFrame.origin = CGPointZero;
   backgroundView.frame = imageFrame;
-  [headerView addSubview:backgroundView];
+  //[headerView addSubview:backgroundView];
+    headerView.backgroundColor = [UIColor redColor];
+
+    
   [backgroundView release];
   
   // Create the previous month pickerDateButton on the left side of the view
@@ -178,6 +182,7 @@ static const CGFloat kMonthLabelHeight = 17.f;
       shadowView = [[UIImageView alloc] initWithFrame:fullWidthAutomaticLayoutFrame];
       shadowView.image = [UIImage imageNamed:@"Kal.bundle/kal_grid_shadow.png"];
       shadowView.height = shadowView.image.size.height;
+
       [contentView addSubview:shadowView];
   }else{
       self.backgroundColor = [UIColor whiteColor];
@@ -185,7 +190,7 @@ static const CGFloat kMonthLabelHeight = 17.f;
 
   }
 
-    gridView.backgroundColor = [UIColor whiteColor];
+    gridView.backgroundColor = [UIColor clearColor];
   // Trigger the initial KVO update to finish the contentView layout
   [gridView sizeToFit];
 }

@@ -4,6 +4,7 @@
  */
 
 #import <CoreGraphics/CoreGraphics.h>
+#import <QuartzCore/QuartzCore.h>
 
 #import "KalGridView.h"
 #import "KalView.h"
@@ -29,6 +30,7 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
 
 @implementation KalGridView{
     CGSize kTileSize;
+    CGFloat kTileGap;
 }
 
 @synthesize selectedTile, highlightedTile, transitioning;
@@ -44,10 +46,11 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
   // will be clipped off the screen, but that's fine because
   // MobileCal does the same thing.
     NSDictionary *titleSize = [KalCustom shareInstance].titleSize;
-kTileSize = CGSizeMake([titleSize[@"w"] floatValue], [titleSize[@"h"] floatValue]);
-  frame.size.width = 7 * kTileSize.width;
+    kTileSize = CGSizeMake([titleSize[@"w"] floatValue], [titleSize[@"h"] floatValue]);
+    kTileGap = [titleSize[@"g"] floatValue];
+    frame.size.width = 7 * kTileSize.width + 6 * kTileGap;
   
-  if (self = [super initWithFrame:frame]) {
+    if(self = [super initWithFrame:frame]) {
     self.clipsToBounds = YES;
     logic = [theLogic retain];
     delegate = theDelegate;
@@ -58,7 +61,6 @@ kTileSize = CGSizeMake([titleSize[@"w"] floatValue], [titleSize[@"h"] floatValue
     backMonthView.hidden = YES;
     [self addSubview:backMonthView];
     [self addSubview:frontMonthView];
-
     [self jumpToSelectedMonth];
   }
   return self;
@@ -66,13 +68,13 @@ kTileSize = CGSizeMake([titleSize[@"w"] floatValue], [titleSize[@"h"] floatValue
 
 - (void)drawRect:(CGRect)rect
 {
-  [[UIImage imageNamed:@"Kal.bundle/kal_grid_background.png"] drawInRect:rect];
-  [[UIColor colorWithRed:0.63f green:0.65f blue:0.68f alpha:1.f] setFill];
+//  [[UIImage imageNamed:@"Kal.bundle/kal_grid_background.png"] drawInRect:rect];
 //  [[UIColor colorWithRed:0.63f green:0.65f blue:0.68f alpha:1.f] setFill];
-  CGRect line;
-  line.origin = CGPointMake(0.f, self.height - 1.f);
-  line.size = CGSizeMake(self.width, 1.f);
-  CGContextFillRect(UIGraphicsGetCurrentContext(), line);
+////  [[UIColor colorWithRed:0.63f green:0.65f blue:0.68f alpha:1.f] setFill];
+//  CGRect line;
+//  line.origin = CGPointMake(0.f, self.height - 1.f);
+//  line.size = CGSizeMake(self.width, 1.f);
+//  CGContextFillRect(UIGraphicsGetCurrentContext(), line);
 }
 
 - (void)sizeToFit
@@ -171,12 +173,12 @@ kTileSize = CGSizeMake([titleSize[@"w"] floatValue], [titleSize[@"h"] floatValue
   // set initial positions before the slide
   if (direction == SLIDE_UP) {
     backMonthView.top = keepOneRow
-      ? frontMonthView.bottom - kTileSize.height
+      ? frontMonthView.bottom - (kTileSize.height + kTileGap)
       : frontMonthView.bottom;
   } else if (direction == SLIDE_DOWN) {
     NSUInteger numWeeksToKeep = keepOneRow ? 1 : 0;
     NSInteger numWeeksToSlide = [backMonthView numWeeks] - numWeeksToKeep;
-    backMonthView.top = -numWeeksToSlide * kTileSize.height;
+    backMonthView.top = -numWeeksToSlide * (kTileSize.height + kTileGap);
   } else {
     backMonthView.top = 0.f;
   }
