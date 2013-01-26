@@ -89,13 +89,13 @@
     markerImage = [UIImage imageNamed:@"Kal.bundle/kal_marker.png"];
   }
 
-  if (flags.marked){
+  if (flags.marked && !self.belongsToAdjacentMonth){
       [bgColorWhenNotEmpty setFill]; //green color
       CGContextFillRect(ctx, CGRectMake(0.f, drawStartY, kTileSize.width + drawGapSize, kTileSize.height + drawGapSize));
       textColor = [UIColor whiteColor];
   }
 
-    if (self.selected) {
+    if (self.selected ) {
 //    [[[UIImage imageNamed:@"Kal.bundle/kal_tile_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:0] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
         shadowColor = [UIColor blackColor];
         markerImage = [UIImage imageNamed:@"Kal.bundle/kal_marker_selected.png"];

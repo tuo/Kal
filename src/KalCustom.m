@@ -27,7 +27,7 @@
     //7 * width + 6 * gap = 294 or 320 ;
     //gap = 2 width = 44
     if (self.isCustom){
-        return @{@"w" : @42.0f, @"h":@42.0f,@"g" : @2.0f};
+        return @{@"w" : @40.0f, @"h":@40.0f,@"g" : @2.3f};
     }
     return @{@"w" : @44.0f, @"h":@42.0f, @"g" : @2.0f};
 }

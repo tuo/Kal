@@ -4,7 +4,7 @@ Old one:
 ![](http://farm9.staticflickr.com/8308/7898361456_debb9e2695.jpg)
 
 After polish:
-![](http://farm9.staticflickr.com/8220/8416819332_c077c87e9b_b.jpg)
+![](http://farm9.staticflickr.com/8191/8416834438_ea8b1895be_b.jpg)
 
 This project aims to provide an open-source implementation of the month view in Apple's mobile calendar app (MobileCal). When the user taps a day on the calendar, any associated data for that day will be displayed in a table view directly below the calendar. As a client of the Kal component, you have 2 responsibilities:
 
